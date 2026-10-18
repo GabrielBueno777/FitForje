@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fit Forje</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <meta name="description" content="Organize treinos, hábitos alimentares e evolução pessoal com o Fit Forje." >
+  <meta name="theme-color" content="#f4f5ef" >
+  <link rel="preconnect" href="https://fonts.googleapis.com" >
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" >
+  <title>Fit Forje | Treino e evolução no seu ritmo</title>
+  <link rel="stylesheet" href="fit.css" >
 </head>
 <body>
   <div class="app-shell">
     <header class="topbar">
       <div class="logo">Fit Forje</div>
-      <nav class="main-nav">
+      <nav class="main-nav" aria-label="Navegação principal">
         <button type="button" class="nav-button" data-screen="home">Início</button>
         <button type="button" class="nav-button auth-only" data-screen="dashboard">Dashboard</button>
         <button type="button" class="nav-button auth-only" data-screen="diets">Dietas</button>
@@ -31,46 +36,44 @@
     <main class="view-area">
       <section class="screen" id="screen-home">
         <div class="hero-panel">
+          <img class="hero-image" src="./assets/fitness-hero.jpg" alt="Pessoa treinando força em uma academia" fetchpriority="high" >
           <div class="hero-copy">
-            <span class="eyebrow">PROJETO FIT</span>
-            <h1>Transforme seu corpo. Melhore sua vida.</h1>
-            <p>Treinos, dietas e acompanhamento completo em um único lugar. Um plano para cada objetivo, com metas reais.</p>
+            <span class="eyebrow">FIT FORJE · ROTINA SAUDÁVEL</span>
+            <h1>Treine com intenção. Evolua no seu ritmo.</h1>
+            <p>Organize seus treinos, acompanhe hábitos e mantenha seu progresso em um só lugar, respeitando a sua rotina.</p>
             <div class="hero-actions">
-              <button type="button" class="button primary" data-screen="login">Começar</button>
+              <button type="button" class="button primary" data-screen="register">Criar meu perfil</button>
               <button type="button" class="button secondary" data-screen="plans">Ver planos</button>
             </div>
-          </div>
-          <div class="hero-cards">
-            <article class="card-treino-personalizado">
-              <h3>Treinos personalizados</h3>
-              <p>Rotinas criadas para seu nível e sua meta.</p>
-            </article>
-            <article class="card-suporte">
-              <h3>Suporte 24/7</h3>
-              <p>Equipe digital pronta para acompanhar sua jornada.</p>
-            </article>
-            <article class="card-resultados">
-              <h3>Resultados reais</h3>
-              <p>Monitore peso, gordura, dieta e saúde em um único painel.</p>
-            </article>
           </div>
         </div>
 
         <div class="summary-grid">
           <section class="card-resumo">
-            <strong>Planos para todos os objetivos</strong>
-            <p>Escolha o plano que cabe no seu dia a dia.</p>
-            <button type="button" class="button tertiary" data-screen="plans">Selecionar plano</button>
+            <strong>Treino orientado</strong>
+            <p>Organize sessões de acordo com seu objetivo e local de treino.</p>
           </section>
           <section class="card-resumo">
-            <strong>Treinos alinhados</strong>
-            <p>Treino para peito, costas, pernas e foco de hipertrofia.</p>
+            <strong>Hábitos alimentares</strong>
+            <p>Consulte sugestões gerais para planejar suas refeições.</p>
           </section>
           <section class="card-resumo">
-            <strong>Dietas saborosas</strong>
-            <p>Cardápios simples e equilibrados para ganhar massa ou perder gordura.</p>
+            <strong>Evolução pessoal</strong>
+            <p>Registre medidas e atividades concluídas ao longo do tempo.</p>
           </section>
         </div>
+
+        <section class="home-how" aria-labelledby="howTitle">
+          <div class="section-header">
+            <span class="eyebrow">Comece por aqui</span>
+            <h2 id="howTitle">Um plano que parte da sua rotina</h2>
+          </div>
+          <div class="steps-grid">
+            <article><span>01</span><h3>Conte sobre você</h3><p>Informe seus objetivos, disponibilidade e preferências.</p></article>
+            <article><span>02</span><h3>Organize sua semana</h3><p>Consulte sugestões de treino e refeições para sua rotina.</p></article>
+            <article><span>03</span><h3>Acompanhe o caminho</h3><p>Registre atividades e atualize seus dados quando quiser.</p></article>
+          </div>
+        </section>
       </section>
 
       <section class="screen hidden" id="screen-login">
@@ -86,17 +89,17 @@
           <form class="formulario-autenticacao" id="loginForm">
             <label>
               E-mail
-              <input type="email" name="loginEmail" placeholder="seu@email.com" required />
+              <input type="email" name="loginEmail" placeholder="seu@email.com" required >
             </label>
-            <label>
-              Senha
-              <div class="campo-senha">
-                <input type="password" name="loginPassword" placeholder="••••••••" required minlength="6" />
-                <button type="button" class="password-toggle" data-target="loginPassword" aria-label="Mostrar senha">👁</button>
-              </div>
-            </label>
+            <label for="loginPassword">Senha</label>
+            <div class="campo-senha">
+              <input id="loginPassword" type="password" name="loginPassword" placeholder="Sua senha" required autocomplete="current-password" >
+              <button type="button" class="password-toggle" data-target="loginPassword" aria-label="Mostrar senha" title="Mostrar senha" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
             <button type="submit" class="button primary">Entrar</button>
-            <button type="button" class="button secondary" id="loginGoogle">Entrar com Google</button>
+            <p class="screen-notice">O acesso com Google ainda não está configurado.</p>
           </form>
         </div>
       </section>
@@ -113,26 +116,26 @@
           <form class="formulario-autenticacao" id="registerForm">
             <label>
               Nome completo
-              <input type="text" name="registerName" placeholder="João Silva" required />
+              <input type="text" name="registerName" placeholder="João Silva" required >
             </label>
             <label>
               E-mail
-              <input type="email" name="registerEmail" placeholder="seu@email.com" required />
+              <input type="email" name="registerEmail" placeholder="seu@email.com" required >
             </label>
-            <label>
-              Senha
-              <div class="campo-senha">
-                <input type="password" name="registerPassword" placeholder="••••••••" required minlength="6" />
-                <button type="button" class="password-toggle" data-target="registerPassword" aria-label="Mostrar senha">👁</button>
-              </div>
-            </label>
-            <label>
-              Confirmar senha
-              <div class="campo-senha">
-                <input type="password" name="registerConfirmPassword" placeholder="••••••••" required minlength="6" />
-                <button type="button" class="password-toggle" data-target="registerConfirmPassword" aria-label="Mostrar senha">👁</button>
-              </div>
-            </label>
+            <label for="registerPassword">Senha</label>
+            <div class="campo-senha">
+              <input id="registerPassword" type="password" name="registerPassword" placeholder="Mínimo de 10 caracteres" required minlength="10" autocomplete="new-password" >
+              <button type="button" class="password-toggle" data-target="registerPassword" aria-label="Mostrar senha" title="Mostrar senha" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <label for="registerConfirmPassword">Confirmar senha</label>
+            <div class="campo-senha">
+              <input id="registerConfirmPassword" type="password" name="registerConfirmPassword" placeholder="Repita sua senha" required minlength="10" autocomplete="new-password" >
+              <button type="button" class="password-toggle" data-target="registerConfirmPassword" aria-label="Mostrar senha" title="Mostrar senha" aria-pressed="false">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
             <button type="submit" class="button primary">Cadastrar</button>
           </form>
         </div>
@@ -141,16 +144,14 @@
       <section class="screen hidden" id="screen-onboarding">
         <div class="painel-autenticacao">
           <div class="auth-copy">
-            <h2>Complete seu perfil</h2>
-            <p>Informe seus dados para gerar um treino e uma dieta personalizados.</p>
-            <div class="auth-bottom">
-              <p>Esses dados ajudam a definir a melhor meta para você.</p>
-            </div>
+            <span class="eyebrow">Seu perfil</span>
+            <h2>Conte sobre sua rotina</h2>
+            <p>Esses dados ajudam a organizar sugestões de treino e refeições. Você pode atualizá-los depois.</p>
           </div>
           <form class="formulario-autenticacao" id="onboardingForm">
             <label>
               Idade
-              <input type="number" name="age" min="10" max="100" placeholder="25" required />
+              <input type="number" name="age" min="13" max="100" placeholder="25" required >
             </label>
             <label>
               Sexo
@@ -163,11 +164,11 @@
             </label>
             <label>
               Altura (cm)
-              <input type="number" name="height" min="120" max="250" placeholder="175" required />
+              <input type="number" name="height" min="120" max="250" placeholder="175" required >
             </label>
             <label>
               Peso atual (kg)
-              <input type="number" name="weight" min="30" max="200" placeholder="78" required />
+              <input type="number" name="weight" min="30" max="200" placeholder="78" required >
             </label>
             <label>
               Objetivo
@@ -191,21 +192,21 @@
             </label>
             <label>
               Dias por semana disponíveis
-              <input type="number" name="availabilityDays" min="1" max="7" placeholder="4" required />
+              <input type="number" name="availabilityDays" min="1" max="7" placeholder="4" required >
             </label>
             <label>
               Horas por dia disponíveis
-              <input type="number" name="hoursPerDay" min="1" max="6" placeholder="1" required />
+              <input type="number" name="hoursPerDay" min="1" max="6" placeholder="1" required >
             </label>
             <fieldset class="checkbox-group">
               <legend>Quais dias da semana você treina?</legend>
-              <label><input type="checkbox" name="weekDays" value="Segunda" /> Segunda</label>
-              <label><input type="checkbox" name="weekDays" value="Terça" /> Terça</label>
-              <label><input type="checkbox" name="weekDays" value="Quarta" /> Quarta</label>
-              <label><input type="checkbox" name="weekDays" value="Quinta" /> Quinta</label>
-              <label><input type="checkbox" name="weekDays" value="Sexta" /> Sexta</label>
-              <label><input type="checkbox" name="weekDays" value="Sábado" /> Sábado</label>
-              <label><input type="checkbox" name="weekDays" value="Domingo" /> Domingo</label>
+              <label><input type="checkbox" name="weekDayMonday" data-week-day="Segunda" value="Segunda" > Segunda</label>
+              <label><input type="checkbox" name="weekDayTuesday" data-week-day="Terça" value="Terça" > Terça</label>
+              <label><input type="checkbox" name="weekDayWednesday" data-week-day="Quarta" value="Quarta" > Quarta</label>
+              <label><input type="checkbox" name="weekDayThursday" data-week-day="Quinta" value="Quinta" > Quinta</label>
+              <label><input type="checkbox" name="weekDayFriday" data-week-day="Sexta" value="Sexta" > Sexta</label>
+              <label><input type="checkbox" name="weekDaySaturday" data-week-day="Sábado" value="Sábado" > Sábado</label>
+              <label><input type="checkbox" name="weekDaySunday" data-week-day="Domingo" value="Domingo" > Domingo</label>
             </fieldset>
             <label>
               Local de treino
@@ -238,7 +239,7 @@
         <div class="painel-autenticacao">
           <div class="auth-copy">
             <h2>Recuperar senha</h2>
-            <p>Digite seu e-mail e enviaremos instruções para recuperar o acesso.</p>
+            <p>Informe o e-mail da sua conta para verificar as opções de recuperação.</p>
             <div class="auth-bottom">
               <p>Lembrou sua senha? <button type="button" class="botao-link" data-screen="login">Faça login</button></p>
             </div>
@@ -246,9 +247,10 @@
           <form class="formulario-autenticacao" id="recoveryForm">
             <label>
               E-mail
-              <input type="email" name="recoveryEmail" placeholder="seu@email.com" required />
+              <input type="email" name="recoveryEmail" placeholder="seu@email.com" required >
             </label>
             <button type="submit" class="button primary">Enviar instruções</button>
+            <p class="screen-notice">O envio de e-mails ainda não está configurado. Nenhuma mensagem será enviada.</p>
           </form>
         </div>
       </section>
@@ -265,37 +267,38 @@
           <article class="card-plano" data-plan="basic">
             <span class="etiqueta-plano">BASIC</span>
             <strong>R$ 19,90 / mês</strong>
-            <p>Básico para começar com treinos simples e acompanhamento leve.</p>
+            <p>Acesso ao perfil e às ferramentas atuais do Fit Forje.</p>
             <ul>
-              <li>Treino semanal</li>
-              <li>Acesso ao app</li>
-              <li>Suporte por chat</li>
+              <li>Perfil e rotina pessoal</li>
+              <li>Sugestões gerais de treino</li>
+              <li>Registro de evolução</li>
             </ul>
             <button type="button" class="button tertiary botao-selecionar-plano">Selecionar</button>
           </article>
           <article class="card-plano destaque" data-plan="pro">
             <span class="etiqueta-plano">PRO</span>
             <strong>R$ 39,90 / mês</strong>
-            <p>Ideal para quem quer ganhar força com acompanhamento estruturado.</p>
+            <p>Recursos atuais do protótipo; cobrança online ainda indisponível.</p>
             <ul>
-              <li>3 treinos por semana</li>
-              <li>Plano alimentar</li>
-              <li>Acompanhamento mensal</li>
+              <li>Recursos atuais do Fit</li>
+              <li>Sugestões de refeições</li>
+              <li>Histórico pessoal</li>
             </ul>
             <button type="button" class="button primary botao-selecionar-plano">Selecionar</button>
           </article>
           <article class="card-plano" data-plan="premium">
             <span class="etiqueta-plano">PREMIUM</span>
             <strong>R$ 59,90 / mês</strong>
-            <p>Pacote completo com treinos avançados, dieta e acompanhamento premium.</p>
+            <p>Não inclui consultas nem acompanhamento profissional.</p>
             <ul>
-              <li>Treinos diários</li>
-              <li>Consultas com especialista</li>
-              <li>Suporte prioritário</li>
+              <li>Recursos atuais do Fit</li>
+              <li>Perfil e acompanhamento</li>
+              <li>Sem consulta profissional inclusa</li>
             </ul>
             <button type="button" class="button secondary botao-selecionar-plano">Selecionar</button>
           </article>
         </div>
+        <p class="screen-notice">Os valores exibidos são os cadastrados neste protótipo. A cobrança online ainda não está integrada.</p>
         <div class="cta-row">
           <button type="button" class="button primary" data-screen="payment">Finalizar pagamento</button>
         </div>
@@ -312,27 +315,27 @@
             <h3>Informações</h3>
             <div class="info-line"><strong>E-mail</strong><span id="profileEmail"></span></div>
             <div class="info-line"><strong>Plano</strong><span id="profilePlan"></span></div>
-            <div class="info-line"><strong>Objetivo</strong><span id="profileGoal">Hipertrofia</span></div>
-            <div class="info-line"><strong>Idade</strong><span id="profileAge">25</span></div>
-            <div class="info-line"><strong>Sexo</strong><span id="profileSex">Masculino</span></div>
-            <div class="info-line"><strong>Altura</strong><span id="profileHeight">175 cm</span></div>
-            <div class="info-line"><strong>Peso</strong><span id="profileWeight">78 kg</span></div>
-            <div class="info-line"><strong>Treino</strong><span id="profileLocation">Casa</span></div>
-            <div class="info-line"><strong>Intensidade</strong><span id="profileIntensity">Moderada</span></div>
-            <div class="info-line"><strong>Dias disponíveis</strong><span id="profileSchedule">Seg, Qua, Sex</span></div>
+            <div class="info-line"><strong>Objetivo</strong><span id="profileGoal">Não informado</span></div>
+            <div class="info-line"><strong>Idade</strong><span id="profileAge">Não informado</span></div>
+            <div class="info-line"><strong>Sexo</strong><span id="profileSex">Não informado</span></div>
+            <div class="info-line"><strong>Altura</strong><span id="profileHeight">Não informado</span></div>
+            <div class="info-line"><strong>Peso</strong><span id="profileWeight">Não informado</span></div>
+            <div class="info-line"><strong>Treino</strong><span id="profileLocation">Não informado</span></div>
+            <div class="info-line"><strong>Intensidade</strong><span id="profileIntensity">Não informado</span></div>
+            <div class="info-line"><strong>Dias disponíveis</strong><span id="profileSchedule">Não informado</span></div>
             <button type="button" class="button secondary" data-screen="onboarding">Editar dados</button>
             <button type="button" class="button secondary" data-screen="plans">Alterar plano</button>
           </div>
           <div class="card-perfil stats-card">
             <h3>Estatísticas</h3>
-            <div class="stat-row"><span>15</span><small>treinos este mês</small></div>
-            <div class="stat-row"><span id="profileWeightStat">78 kg</span><small>peso atual</small></div>
-            <div class="stat-row"><span id="profileFat">14%</span><small>% de gordura</small></div>
-            <div class="stat-row"><span id="profileBMI">25,5</span><small>IMC</small></div>
+            <div class="stat-row"><span id="profileWorkouts">0</span><small>treinos concluídos</small></div>
+            <div class="stat-row"><span id="profileWeightStat">Não informado</span><small>peso atual</small></div>
+            <div class="stat-row"><span id="profileFat">Não informado</span><small>% de gordura</small></div>
+            <div class="stat-row"><span id="profileBMI">Não calculado</span><small>IMC</small></div>
             <button type="button" class="button tertiary" data-screen="dashboard">Ver dashboard</button>
           </div>
           <div class="card-perfil resumo-plano">
-            <h3>Plano personalizado</h3>
+            <h3>Sugestões para seu perfil</h3>
             <p id="profilePlanTarget">Seu plano será gerado automaticamente após completar o perfil.</p>
             <div class="plan-block">
               <h4>Treino sugerido</h4>
@@ -344,6 +347,7 @@
             </div>
           </div>
         </div>
+        <p class="screen-notice">Medidas, indicadores e sugestões são estimativas para acompanhamento pessoal; não substituem avaliação de profissionais de saúde.</p>
       </section>
 
       <section class="screen hidden" id="screen-dashboard">
@@ -354,41 +358,27 @@
         </div>
         <div class="dashboard-grid">
           <div class="card-painel">
-            <h3>Meta do dia</h3>
+            <h3>Estimativa nutricional</h3>
             <div class="metric-list">
-              <div><strong>1.850</strong><span>Calorias</span></div>
-              <div><strong>120g</strong><span>Proteínas</span></div>
-              <div><strong>80g</strong><span>Carboidratos</span></div>
-              <div><strong>60g</strong><span>Gorduras</span></div>
+              <div><strong>—</strong><span>Calorias</span></div>
+              <div><strong>—</strong><span>Proteínas</span></div>
+              <div><strong>—</strong><span>Carboidratos</span></div>
+              <div><strong>—</strong><span>Gorduras</span></div>
             </div>
+            <p class="metric-disclaimer">Estimativa genérica a partir do perfil; não é recomendação nutricional individual.</p>
           </div>
           <div class="card-painel progress-card">
             <h3>Progresso semanal</h3>
             <div class="progress-summary">
-              <span>15 dias</span>
-              <span>78kg</span>
-              <span>14%</span>
+              <span>—</span>
+              <span>—</span>
+              <span>—</span>
             </div>
-            <div class="progress-bar-group">
-              <label>Força</label>
-              <div class="progress-bar"><span style="width: 75%"></span></div>
-            </div>
-            <div class="progress-bar-group">
-              <label>Condicionamento</label>
-              <div class="progress-bar"><span style="width: 60%"></span></div>
-            </div>
-            <div class="progress-bar-group">
-              <label>Recuperação</label>
-              <div class="progress-bar"><span style="width: 85%"></span></div>
-            </div>
+            <p>O resumo mostra apenas atividades registradas na sua conta.</p>
           </div>
           <div class="card-painel extras-card">
             <h3>Últimas ações</h3>
-            <ul>
-              <li>Treino de Peito concluído</li>
-              <li>Plano alimentar atualizado</li>
-              <li>Nova mensagem do coach</li>
-            </ul>
+            <ul></ul>
             <button type="button" class="button tertiary" data-screen="training">Ir para treinos</button>
           </div>
         </div>
@@ -398,30 +388,13 @@
         <div class="section-header">
           <span class="eyebrow">Dietas</span>
           <h2>Plano alimentar</h2>
-          <p>Receitas, refeições e macros para acompanhar seu objetivo.</p>
+          <p>Sugestões gerais de refeições para ajudar a organizar sua rotina.</p>
         </div>
-        <div class="meal-grid">
-          <article class="card-refeicao">
-            <h3>Café da manhã</h3>
-            <p>Ovos mexidos, tapioca e frutas vermelhas.</p>
-            <span>440 kcal</span>
-          </article>
-          <article class="card-refeicao">
-            <h3>Almoço</h3>
-            <p>Arroz integral, frango grelhado e salada colorida.</p>
-            <span>620 kcal</span>
-          </article>
-          <article class="card-refeicao">
-            <h3>Lanche</h3>
-            <p>Iogurte grego com granola e banana.</p>
-            <span>280 kcal</span>
-          </article>
-          <article class="card-refeicao">
-            <h3>Jantar</h3>
-            <p>Salmão com legumes e batata doce.</p>
-            <span>520 kcal</span>
-          </article>
-        </div>
+        <figure class="meal-feature">
+          <img class="meal-photo" src="./assets/healthy-meal.jpg" alt="Refeição equilibrada com vegetais, grãos e ingredientes frescos" loading="lazy" >
+          <figcaption>As sugestões do Fit são informativas e não substituem orientação individual de nutricionista ou profissional de saúde.</figcaption>
+        </figure>
+        <div class="meal-grid"></div>
       </section>
 
       <section class="screen hidden" id="screen-training">
@@ -430,36 +403,7 @@
           <h2>Treinos da semana</h2>
           <p>Complete as sessões e siga seu plano.</p>
         </div>
-        <div class="lista-treinos">
-          <article class="item-treino">
-            <div>
-              <strong>Treino 1 - Peito e Tríceps</strong>
-              <p>Supino, tríceps na polia e flexões.</p>
-            </div>
-            <button type="button" class="button tertiary complete-button">Marcar como concluído</button>
-          </article>
-          <article class="item-treino">
-            <div>
-              <strong>Treino 2 - Costas e Bíceps</strong>
-              <p>Puxada, remada e curl bilateral.</p>
-            </div>
-            <button type="button" class="button tertiary complete-button">Marcar como concluído</button>
-          </article>
-          <article class="item-treino">
-            <div>
-              <strong>Treino 3 - Pernas</strong>
-              <p>Agachamento, leg press e panturrilha.</p>
-            </div>
-            <button type="button" class="button tertiary complete-button">Marcar como concluído</button>
-          </article>
-          <article class="item-treino">
-            <div>
-              <strong>Treino 4 - Core e Cardio</strong>
-              <p>Prancha, abdominal e HIIT leve.</p>
-            </div>
-            <button type="button" class="button tertiary complete-button">Marcar como concluído</button>
-          </article>
-        </div>
+        <div class="lista-treinos"></div>
       </section>
 
       <section class="screen hidden" id="screen-progress">
@@ -471,23 +415,11 @@
         <div class="progress-charts">
           <div class="card-grafico">
             <h3>Peso</h3>
-            <div class="chart-axis">
-              <div class="chart-point" style="bottom: 15%;">90kg</div>
-              <div class="chart-point" style="bottom: 30%;">88kg</div>
-              <div class="chart-point" style="bottom: 45%;">86kg</div>
-              <div class="chart-point" style="bottom: 60%;">84kg</div>
-              <div class="chart-point" style="bottom: 75%;">82kg</div>
-            </div>
+            <div class="chart-axis" aria-live="polite"></div>
           </div>
           <div class="card-grafico">
             <h3>% de gordura</h3>
-            <div class="chart-axis">
-              <div class="chart-point" style="bottom: 20%;">28%</div>
-              <div class="chart-point" style="bottom: 35%;">27%</div>
-              <div class="chart-point" style="bottom: 50%;">26%</div>
-              <div class="chart-point" style="bottom: 65%;">25%</div>
-              <div class="chart-point" style="bottom: 80%;">24%</div>
-            </div>
+            <div class="chart-axis" aria-live="polite"></div>
           </div>
         </div>
       </section>
@@ -496,35 +428,18 @@
         <div class="section-header">
           <span class="eyebrow">Pagamento</span>
           <h2>Resumo do pedido</h2>
-          <p>Confirme os dados e conclua a assinatura.</p>
+          <p>Confira o plano selecionado antes de prosseguir.</p>
         </div>
         <div class="payment-grid">
           <form class="payment-form" id="paymentForm">
-            <label>
-              Nome no cartão
-              <input type="text" name="cardName" placeholder="João Silva" required />
-            </label>
-            <label>
-              Número do cartão
-              <input type="text" name="cardNumber" placeholder="0000 0000 0000 0000" required maxlength="19" />
-            </label>
-            <div class="split-row">
-              <label>
-                Validade
-                <input type="text" name="cardExpiry" placeholder="MM/AA" required maxlength="5" />
-              </label>
-              <label>
-                CVV
-                <input type="password" name="cardCvv" placeholder="123" required maxlength="4" />
-              </label>
-            </div>
-            <button type="submit" class="button primary">Realizar pagamento</button>
+            <p class="screen-notice">O checkout ainda não está conectado a um provedor. Não informe dados de cartão aqui; nenhuma cobrança será feita.</p>
+            <button type="submit" class="button primary">Verificar disponibilidade</button>
           </form>
           <aside class="resumo-pedido">
             <h3>Detalhes do pedido</h3>
             <div class="order-row"><span>Plano selecionado</span><strong id="summaryPlan">-</strong></div>
             <div class="order-row"><span>Valor</span><strong id="summaryPrice">R$ 0,00</strong></div>
-            <div class="order-note">Pagamento seguro e assinatura renovável mensalmente.</div>
+            <div class="order-note">A ativação do plano depende da configuração de um provedor de pagamento.</div>
           </aside>
         </div>
       </section>
@@ -538,33 +453,34 @@
         <div class="admin-grid">
           <div class="card-admin">
             <h3>Usuários ativos</h3>
-            <strong id="adminUsers">120</strong>
+            <strong id="adminUsers">—</strong>
           </div>
           <div class="card-admin">
             <h3>Receita mensal</h3>
-            <strong>R$ 25.480</strong>
+            <strong>Não disponível</strong>
+            <p>Configure pagamentos antes de acompanhar receita.</p>
           </div>
           <div class="card-admin">
-            <h3>Planos em uso</h3>
-            <ul>
-              <li>BASIC: 22</li>
-              <li>PRO: 45</li>
-              <li>PREMIUM: 53</li>
-            </ul>
+            <h3>Assinaturas</h3>
+            <p>Os dados serão exibidos após a integração de cobrança.</p>
           </div>
           <div class="card-admin admin-chart">
-            <h3>Engajamento</h3>
-            <div class="mini-chart">
-              <span></span><span></span><span></span><span></span><span></span>
-            </div>
+            <h3>Atividade</h3>
+            <p>Não há dados de atividade suficientes para mostrar um gráfico.</p>
           </div>
         </div>
       </section>
     </main>
 
-    <div class="toast hidden" id="toastMessage"></div>
+    <footer class="site-footer">
+      <strong>Fit Forje</strong>
+      <p>Uma ferramenta de organização pessoal para treino e hábitos.</p>
+      <p>Conteúdo informativo. Consulte profissionais qualificados para orientação individual.</p>
+    </footer>
+
+    <div class="toast hidden" id="toastMessage" role="status" aria-live="polite"></div>
   </div>
 
-  <script type="module" src="index.js"></script>
+  <script type="module" src="app.js"></script>
 </body>
 </html>
