@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fit Forje</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="logo">Fit Forje</div>
+      <nav class="main-nav">
+        <button type="button" class="nav-button" data-screen="home">Início</button>
+        <button type="button" class="nav-button auth-only" data-screen="dashboard">Dashboard</button>
+        <button type="button" class="nav-button auth-only" data-screen="diets">Dietas</button>
+        <button type="button" class="nav-button auth-only" data-screen="training">Treinos</button>
+        <button type="button" class="nav-button auth-only" data-screen="progress">Progresso</button>
+        <button type="button" class="nav-button auth-only" data-screen="profile">Perfil</button>
+        <button type="button" class="nav-button admin-only" data-screen="admin">Admin</button>
+      </nav>
+      <div class="top-actions">
+        <button type="button" class="button secondary back-button hidden" id="goBackButton" title="Voltar uma tela">← Voltar</button>
+        <span class="user-badge hidden" id="headerUser"></span>
+        <button type="button" class="button secondary hidden" id="logoutButton">Sair</button>
+        <button type="button" class="button secondary" id="openLogin">Entrar</button>
+        <button type="button" class="button primary" id="openRegister">Cadastrar</button>
+      </div>
+    </header>
+
+    <main class="view-area">
+      <section class="screen" id="screen-home">
+        <div class="hero-panel">
+          <div class="hero-copy">
+            <span class="eyebrow">PROJETO FIT</span>
+            <h1>Transforme seu corpo. Melhore sua vida.</h1>
+            <p>Treinos, dietas e acompanhamento completo em um único lugar. Um plano para cada objetivo, com metas reais.</p>
+            <div class="hero-actions">
+              <button type="button" class="button primary" data-screen="login">Começar</button>
+              <button type="button" class="button secondary" data-screen="plans">Ver planos</button>
+            </div>
+          </div>
+          <div class="hero-cards">
+            <article class="card-treino-personalizado">
+              <h3>Treinos personalizados</h3>
+              <p>Rotinas criadas para seu nível e sua meta.</p>
+            </article>
+            <article class="card-suporte">
+              <h3>Suporte 24/7</h3>
+              <p>Equipe digital pronta para acompanhar sua jornada.</p>
+            </article>
+            <article class="card-resultados">
+              <h3>Resultados reais</h3>
+              <p>Monitore peso, gordura, dieta e saúde em um único painel.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <section class="card-resumo">
+            <strong>Planos para todos os objetivos</strong>
+            <p>Escolha o plano que cabe no seu dia a dia.</p>
+            <button type="button" class="button tertiary" data-screen="plans">Selecionar plano</button>
+          </section>
+          <section class="card-resumo">
+            <strong>Treinos alinhados</strong>
+            <p>Treino para peito, costas, pernas e foco de hipertrofia.</p>
+          </section>
+          <section class="card-resumo">
+            <strong>Dietas saborosas</strong>
+            <p>Cardápios simples e equilibrados para ganhar massa ou perder gordura.</p>
+          </section>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-login">
+        <div class="painel-autenticacao">
+          <div class="auth-copy">
+            <h2>Bem-vindo de volta!</h2>
+            <p>Entre com seu e-mail e senha para acessar seu plano, progresso e treinos.</p>
+            <div class="auth-bottom">
+              <p>Não tem conta? <button type="button" class="botao-link" data-screen="register">Cadastre-se</button></p>
+              <p><button type="button" class="botao-link" data-screen="recovery">Esqueci minha senha</button></p>
+            </div>
+          </div>
+          <form class="formulario-autenticacao" id="loginForm">
+            <label>
+              E-mail
+              <input type="email" name="loginEmail" placeholder="seu@email.com" required />
+            </label>
+            <label>
+              Senha
+              <div class="campo-senha">
+                <input type="password" name="loginPassword" placeholder="••••••••" required minlength="6" />
+                <button type="button" class="password-toggle" data-target="loginPassword" aria-label="Mostrar senha">👁</button>
+              </div>
+            </label>
+            <button type="submit" class="button primary">Entrar</button>
+            <button type="button" class="button secondary" id="loginGoogle">Entrar com Google</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-register">
+        <div class="painel-autenticacao">
+          <div class="auth-copy">
+            <h2>Crie sua conta</h2>
+            <p>Preencha os dados para começar seu treinamento.</p>
+            <div class="auth-bottom">
+              <p>Já tem conta? <button type="button" class="botao-link" data-screen="login">Faça login</button></p>
+            </div>
+          </div>
+          <form class="formulario-autenticacao" id="registerForm">
+            <label>
+              Nome completo
+              <input type="text" name="registerName" placeholder="João Silva" required />
+            </label>
+            <label>
+              E-mail
+              <input type="email" name="registerEmail" placeholder="seu@email.com" required />
+            </label>
+            <label>
+              Senha
+              <div class="campo-senha">
+                <input type="password" name="registerPassword" placeholder="••••••••" required minlength="6" />
+                <button type="button" class="password-toggle" data-target="registerPassword" aria-label="Mostrar senha">👁</button>
+              </div>
+            </label>
+            <label>
+              Confirmar senha
+              <div class="campo-senha">
+                <input type="password" name="registerConfirmPassword" placeholder="••••••••" required minlength="6" />
+                <button type="button" class="password-toggle" data-target="registerConfirmPassword" aria-label="Mostrar senha">👁</button>
+              </div>
+            </label>
+            <button type="submit" class="button primary">Cadastrar</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-onboarding">
+        <div class="painel-autenticacao">
+          <div class="auth-copy">
+            <h2>Complete seu perfil</h2>
+            <p>Informe seus dados para gerar um treino e uma dieta personalizados.</p>
+            <div class="auth-bottom">
+              <p>Esses dados ajudam a definir a melhor meta para você.</p>
+            </div>
+          </div>
+          <form class="formulario-autenticacao" id="onboardingForm">
+            <label>
+              Idade
+              <input type="number" name="age" min="10" max="100" placeholder="25" required />
+            </label>
+            <label>
+              Sexo
+              <select name="sex" required>
+                <option value="" disabled selected>Escolha</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </label>
+            <label>
+              Altura (cm)
+              <input type="number" name="height" min="120" max="250" placeholder="175" required />
+            </label>
+            <label>
+              Peso atual (kg)
+              <input type="number" name="weight" min="30" max="200" placeholder="78" required />
+            </label>
+            <label>
+              Objetivo
+              <select name="objective" required>
+                <option value="" disabled selected>Escolha seu objetivo</option>
+                <option value="Emagrecer">Emagrecer</option>
+                <option value="Perder gordura">Perder gordura</option>
+                <option value="Definir/ficar shapado">Definir / ficar shapado</option>
+                <option value="Ganho de massa">Ganho de massa</option>
+              </select>
+            </label>
+            <label>
+              Nível de atividade
+              <select name="activityLevel" required>
+                <option value="" disabled selected>Selecione</option>
+                <option value="Sedentário">Sedentário</option>
+                <option value="Moderado">Moderado</option>
+                <option value="Ativo">Ativo</option>
+                <option value="Muito ativo">Muito ativo</option>
+              </select>
+            </label>
+            <label>
+              Dias por semana disponíveis
+              <input type="number" name="availabilityDays" min="1" max="7" placeholder="4" required />
+            </label>
+            <label>
+              Horas por dia disponíveis
+              <input type="number" name="hoursPerDay" min="1" max="6" placeholder="1" required />
+            </label>
+            <fieldset class="checkbox-group">
+              <legend>Quais dias da semana você treina?</legend>
+              <label><input type="checkbox" name="weekDays" value="Segunda" /> Segunda</label>
+              <label><input type="checkbox" name="weekDays" value="Terça" /> Terça</label>
+              <label><input type="checkbox" name="weekDays" value="Quarta" /> Quarta</label>
+              <label><input type="checkbox" name="weekDays" value="Quinta" /> Quinta</label>
+              <label><input type="checkbox" name="weekDays" value="Sexta" /> Sexta</label>
+              <label><input type="checkbox" name="weekDays" value="Sábado" /> Sábado</label>
+              <label><input type="checkbox" name="weekDays" value="Domingo" /> Domingo</label>
+            </fieldset>
+            <label>
+              Local de treino
+              <select name="trainingLocation" required>
+                <option value="" disabled selected>Selecione</option>
+                <option value="Casa">Casa</option>
+                <option value="Academia">Academia</option>
+                <option value="Casa e Academia">Casa e Academia</option>
+              </select>
+            </label>
+            <label>
+              Intensidade preferida
+              <select name="intensity" required>
+                <option value="" disabled selected>Selecione</option>
+                <option value="Leve">Leve</option>
+                <option value="Moderada">Moderada</option>
+                <option value="Alta">Alta</option>
+              </select>
+            </label>
+            <label>
+              Alergias ou restrições alimentares
+              <textarea name="allergies" placeholder="Ex: lactose, glúten, amendoim"></textarea>
+            </label>
+            <button type="submit" class="button primary">Salvar e continuar</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-recovery">
+        <div class="painel-autenticacao">
+          <div class="auth-copy">
+            <h2>Recuperar senha</h2>
+            <p>Digite seu e-mail e enviaremos instruções para recuperar o acesso.</p>
+            <div class="auth-bottom">
+              <p>Lembrou sua senha? <button type="button" class="botao-link" data-screen="login">Faça login</button></p>
+            </div>
+          </div>
+          <form class="formulario-autenticacao" id="recoveryForm">
+            <label>
+              E-mail
+              <input type="email" name="recoveryEmail" placeholder="seu@email.com" required />
+            </label>
+            <button type="submit" class="button primary">Enviar instruções</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-plans">
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Planos</span>
+            <h2>Escolha seu plano</h2>
+            <p>Comece hoje mesmo com um plano pensado para seus resultados.</p>
+          </div>
+        </div>
+        <div class="plans-grid">
+          <article class="card-plano" data-plan="basic">
+            <span class="etiqueta-plano">BASIC</span>
+            <strong>R$ 19,90 / mês</strong>
+            <p>Básico para começar com treinos simples e acompanhamento leve.</p>
+            <ul>
+              <li>Treino semanal</li>
+              <li>Acesso ao app</li>
+              <li>Suporte por chat</li>
+            </ul>
+            <button type="button" class="button tertiary botao-selecionar-plano">Selecionar</button>
+          </article>
+          <article class="card-plano destaque" data-plan="pro">
+            <span class="etiqueta-plano">PRO</span>
+            <strong>R$ 39,90 / mês</strong>
+            <p>Ideal para quem quer ganhar força com acompanhamento estruturado.</p>
+            <ul>
+              <li>3 treinos por semana</li>
+              <li>Plano alimentar</li>
+              <li>Acompanhamento mensal</li>
+            </ul>
+            <button type="button" class="button primary botao-selecionar-plano">Selecionar</button>
+          </article>
+          <article class="card-plano" data-plan="premium">
+            <span class="etiqueta-plano">PREMIUM</span>
+            <strong>R$ 59,90 / mês</strong>
+            <p>Pacote completo com treinos avançados, dieta e acompanhamento premium.</p>
+            <ul>
+              <li>Treinos diários</li>
+              <li>Consultas com especialista</li>
+              <li>Suporte prioritário</li>
+            </ul>
+            <button type="button" class="button secondary botao-selecionar-plano">Selecionar</button>
+          </article>
+        </div>
+        <div class="cta-row">
+          <button type="button" class="button primary" data-screen="payment">Finalizar pagamento</button>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-profile">
+        <div class="section-header">
+          <span class="eyebrow">Perfil</span>
+          <h2 id="profileName">Seu nome</h2>
+          <p>Veja suas informações e ajuste seu plano.</p>
+        </div>
+        <div class="profile-grid">
+          <div class="card-perfil">
+            <h3>Informações</h3>
+            <div class="info-line"><strong>E-mail</strong><span id="profileEmail"></span></div>
+            <div class="info-line"><strong>Plano</strong><span id="profilePlan"></span></div>
+            <div class="info-line"><strong>Objetivo</strong><span id="profileGoal">Hipertrofia</span></div>
+            <div class="info-line"><strong>Idade</strong><span id="profileAge">25</span></div>
+            <div class="info-line"><strong>Sexo</strong><span id="profileSex">Masculino</span></div>
+            <div class="info-line"><strong>Altura</strong><span id="profileHeight">175 cm</span></div>
+            <div class="info-line"><strong>Peso</strong><span id="profileWeight">78 kg</span></div>
+            <div class="info-line"><strong>Treino</strong><span id="profileLocation">Casa</span></div>
+            <div class="info-line"><strong>Intensidade</strong><span id="profileIntensity">Moderada</span></div>
+            <div class="info-line"><strong>Dias disponíveis</strong><span id="profileSchedule">Seg, Qua, Sex</span></div>
+            <button type="button" class="button secondary" data-screen="onboarding">Editar dados</button>
+            <button type="button" class="button secondary" data-screen="plans">Alterar plano</button>
+          </div>
+          <div class="card-perfil stats-card">
+            <h3>Estatísticas</h3>
+            <div class="stat-row"><span>15</span><small>treinos este mês</small></div>
+            <div class="stat-row"><span id="profileWeightStat">78 kg</span><small>peso atual</small></div>
+            <div class="stat-row"><span id="profileFat">14%</span><small>% de gordura</small></div>
+            <div class="stat-row"><span id="profileBMI">25,5</span><small>IMC</small></div>
+            <button type="button" class="button tertiary" data-screen="dashboard">Ver dashboard</button>
+          </div>
+          <div class="card-perfil resumo-plano">
+            <h3>Plano personalizado</h3>
+            <p id="profilePlanTarget">Seu plano será gerado automaticamente após completar o perfil.</p>
+            <div class="plan-block">
+              <h4>Treino sugerido</h4>
+              <ul id="planTrainingList" class="lista-plano"></ul>
+            </div>
+            <div class="plan-block">
+              <h4>Dieta sugerida</h4>
+              <ul id="planMealList" class="lista-plano"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-dashboard">
+        <div class="section-header">
+          <span class="eyebrow">Acompanhamento</span>
+          <h2>Resumo do dia</h2>
+          <p>Veja seus resultados, rotina e dicas rápidas.</p>
+        </div>
+        <div class="dashboard-grid">
+          <div class="card-painel">
+            <h3>Meta do dia</h3>
+            <div class="metric-list">
+              <div><strong>1.850</strong><span>Calorias</span></div>
+              <div><strong>120g</strong><span>Proteínas</span></div>
+              <div><strong>80g</strong><span>Carboidratos</span></div>
+              <div><strong>60g</strong><span>Gorduras</span></div>
+            </div>
+          </div>
+          <div class="card-painel progress-card">
+            <h3>Progresso semanal</h3>
+            <div class="progress-summary">
+              <span>15 dias</span>
+              <span>78kg</span>
+              <span>14%</span>
+            </div>
+            <div class="progress-bar-group">
+              <label>Força</label>
+              <div class="progress-bar"><span style="width: 75%"></span></div>
+            </div>
+            <div class="progress-bar-group">
+              <label>Condicionamento</label>
+              <div class="progress-bar"><span style="width: 60%"></span></div>
+            </div>
+            <div class="progress-bar-group">
+              <label>Recuperação</label>
+              <div class="progress-bar"><span style="width: 85%"></span></div>
+            </div>
+          </div>
+          <div class="card-painel extras-card">
+            <h3>Últimas ações</h3>
+            <ul>
+              <li>Treino de Peito concluído</li>
+              <li>Plano alimentar atualizado</li>
+              <li>Nova mensagem do coach</li>
+            </ul>
+            <button type="button" class="button tertiary" data-screen="training">Ir para treinos</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-diets">
+        <div class="section-header">
+          <span class="eyebrow">Dietas</span>
+          <h2>Plano alimentar</h2>
+          <p>Receitas, refeições e macros para acompanhar seu objetivo.</p>
+        </div>
+        <div class="meal-grid">
+          <article class="card-refeicao">
+            <h3>Café da manhã</h3>
+            <p>Ovos mexidos, tapioca e frutas vermelhas.</p>
+            <span>440 kcal</span>
+          </article>
+          <article class="card-refeicao">
+            <h3>Almoço</h3>
+            <p>Arroz integral, frango grelhado e salada colorida.</p>
+            <span>620 kcal</span>
+          </article>
+          <article class="card-refeicao">
+            <h3>Lanche</h3>
+            <p>Iogurte grego com granola e banana.</p>
+            <span>280 kcal</span>
+          </article>
+          <article class="card-refeicao">
+            <h3>Jantar</h3>
+            <p>Salmão com legumes e batata doce.</p>
+            <span>520 kcal</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-training">
+        <div class="section-header">
+          <span class="eyebrow">Treinos</span>
+          <h2>Treinos da semana</h2>
+          <p>Complete as sessões e siga seu plano.</p>
+        </div>
+        <div class="lista-treinos">
+          <article class="item-treino">
+            <div>
+              <strong>Treino 1 - Peito e Tríceps</strong>
+              <p>Supino, tríceps na polia e flexões.</p>
+            </div>
+            <button type="button" class="button tertiary complete-button">Marcar como concluído</button>
+          </article>
+          <article class="item-treino">
+            <div>
+              <strong>Treino 2 - Costas e Bíceps</strong>
+              <p>Puxada, remada e curl bilateral.</p>
+            </div>
+            <button type="button" class="button tertiary complete-button">Marcar como concluído</button>
+          </article>
+          <article class="item-treino">
+            <div>
+              <strong>Treino 3 - Pernas</strong>
+              <p>Agachamento, leg press e panturrilha.</p>
+            </div>
+            <button type="button" class="button tertiary complete-button">Marcar como concluído</button>
+          </article>
+          <article class="item-treino">
+            <div>
+              <strong>Treino 4 - Core e Cardio</strong>
+              <p>Prancha, abdominal e HIIT leve.</p>
+            </div>
+            <button type="button" class="button tertiary complete-button">Marcar como concluído</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-progress">
+        <div class="section-header">
+          <span class="eyebrow">Progresso</span>
+          <h2>Evolução</h2>
+          <p>Gráficos simples para acompanhar seu peso e gordura corporal.</p>
+        </div>
+        <div class="progress-charts">
+          <div class="card-grafico">
+            <h3>Peso</h3>
+            <div class="chart-axis">
+              <div class="chart-point" style="bottom: 15%;">90kg</div>
+              <div class="chart-point" style="bottom: 30%;">88kg</div>
+              <div class="chart-point" style="bottom: 45%;">86kg</div>
+              <div class="chart-point" style="bottom: 60%;">84kg</div>
+              <div class="chart-point" style="bottom: 75%;">82kg</div>
+            </div>
+          </div>
+          <div class="card-grafico">
+            <h3>% de gordura</h3>
+            <div class="chart-axis">
+              <div class="chart-point" style="bottom: 20%;">28%</div>
+              <div class="chart-point" style="bottom: 35%;">27%</div>
+              <div class="chart-point" style="bottom: 50%;">26%</div>
+              <div class="chart-point" style="bottom: 65%;">25%</div>
+              <div class="chart-point" style="bottom: 80%;">24%</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-payment">
+        <div class="section-header">
+          <span class="eyebrow">Pagamento</span>
+          <h2>Resumo do pedido</h2>
+          <p>Confirme os dados e conclua a assinatura.</p>
+        </div>
+        <div class="payment-grid">
+          <form class="payment-form" id="paymentForm">
+            <label>
+              Nome no cartão
+              <input type="text" name="cardName" placeholder="João Silva" required />
+            </label>
+            <label>
+              Número do cartão
+              <input type="text" name="cardNumber" placeholder="0000 0000 0000 0000" required maxlength="19" />
+            </label>
+            <div class="split-row">
+              <label>
+                Validade
+                <input type="text" name="cardExpiry" placeholder="MM/AA" required maxlength="5" />
+              </label>
+              <label>
+                CVV
+                <input type="password" name="cardCvv" placeholder="123" required maxlength="4" />
+              </label>
+            </div>
+            <button type="submit" class="button primary">Realizar pagamento</button>
+          </form>
+          <aside class="resumo-pedido">
+            <h3>Detalhes do pedido</h3>
+            <div class="order-row"><span>Plano selecionado</span><strong id="summaryPlan">-</strong></div>
+            <div class="order-row"><span>Valor</span><strong id="summaryPrice">R$ 0,00</strong></div>
+            <div class="order-note">Pagamento seguro e assinatura renovável mensalmente.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="screen hidden" id="screen-admin">
+        <div class="section-header">
+          <span class="eyebrow">Admin</span>
+          <h2>Painel administrativo</h2>
+          <p>Visão geral das métricas e uso do serviço.</p>
+        </div>
+        <div class="admin-grid">
+          <div class="card-admin">
+            <h3>Usuários ativos</h3>
+            <strong id="adminUsers">120</strong>
+          </div>
+          <div class="card-admin">
+            <h3>Receita mensal</h3>
+            <strong>R$ 25.480</strong>
+          </div>
+          <div class="card-admin">
+            <h3>Planos em uso</h3>
+            <ul>
+              <li>BASIC: 22</li>
+              <li>PRO: 45</li>
+              <li>PREMIUM: 53</li>
+            </ul>
+          </div>
+          <div class="card-admin admin-chart">
+            <h3>Engajamento</h3>
+            <div class="mini-chart">
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast hidden" id="toastMessage"></div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
