@@ -144,6 +144,7 @@ function showScreen(screenId, pushState = true) {
   screens.forEach((screen) => {
     screen.classList.toggle('hidden', screen.id !== `screen-${screenId}`);
   });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   currentScreen = screenId;
   const current = document.getElementById(`screen-${screenId}`);
   if (current && screenId === 'payment') {
@@ -509,8 +510,6 @@ function attachNavigation() {
       }
     });
   });
-  openLogin?.addEventListener('click', () => showScreen('login'));
-  openRegister?.addEventListener('click', () => showScreen('register'));
   document.querySelectorAll('.botao-selecionar-plano').forEach((button) => {
     button.addEventListener('click', () => {
       const plan = button.closest('.card-plano')?.getAttribute('data-plan');
