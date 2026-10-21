@@ -37,4 +37,14 @@ db.exec(`
   );
 
   CREATE INDEX IF NOT EXISTS sessions_expiry_idx ON sessions(expires_at);
+
+  CREATE TABLE IF NOT EXISTS workout_completions (
+    user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    workout_title TEXT NOT NULL,
+    week_start TEXT NOT NULL,
+    completed_at INTEGER NOT NULL,
+    PRIMARY KEY (user_id, workout_title, week_start)
+  );
+
+  CREATE INDEX IF NOT EXISTS workout_completions_week_idx ON workout_completions(user_id, week_start);
 `);

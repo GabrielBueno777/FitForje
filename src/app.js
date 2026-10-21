@@ -34,6 +34,7 @@ async function apiRequest(path, options = {}) {
     credentials: 'same-origin',
     ...options,
     headers: {
+      'X-Time-Zone': Intl.DateTimeFormat().resolvedOptions().timeZone,
       ...(options.body ? { 'Content-Type': 'application/json' } : {}),
       ...options.headers,
     },
@@ -336,7 +337,10 @@ function renderTraining() {
     details.textContent = description.join(':').trim();
     button.type = 'button';
     button.className = 'button tertiary complete-button';
-    button.textContent = 'Marcar como concluído';
+    const completed = currentUser.completedWorkouts?.includes(title);
+    button.textContent = completed ? 'Concluído' : 'Marcar como concluído';
+    button.disabled = Boolean(completed);
+    if (completed) article.classList.add('completed');
     button.addEventListener('click', () => completeWorkout(button, article, title));
     content.append(heading, details);
     article.append(content, button);

@@ -40,6 +40,31 @@ const sessionDuration = 14 * 24 * 60 * 60 * 1000;
 const allowedPlans = new Set(['basic', 'pro', 'premium']);
 const allowedWeekDays = new Set(['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo']);
 
+function getRequestTimeZone(request: Request) {
+  const timeZone = request.headers.get('x-time-zone') || 'UTC';
+  try {
+    new Intl.DateTimeFormat('en-US', { timeZone }).format();
+    return timeZone;
+  } catch {
+    return 'UTC';
+  }
+}
+
+function getWeekStart(timeZone = 'UTC') {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(new Date());
+  const year = Number(parts.find(({ type }) => type === 'year')?.value);
+  const month = Number(parts.find(({ type }) => type === 'month')?.value);
+  const day = Number(parts.find(({ type }) => type === 'day')?.value);
+  const monday = new Date(Date.UTC(year, month - 1, day));
+  monday.setUTCDate(monday.getUTCDate() - ((monday.getUTCDay() + 6) % 7));
+  return monday.toISOString().slice(0, 10);
+}
+
 function hashToken(token: string) {
   return createHash('sha256').update(token).digest('hex');
 }
@@ -72,13 +97,19 @@ async function readJson(request: Request): Promise<Record<string, unknown> | nul
   }
 }
 
-function publicUser(user: UserRow) {
+function publicUser(user: UserRow, timeZone = 'UTC') {
   let profile: Record<string, unknown> = {};
   try {
     profile = JSON.parse(user.profile_json) as Record<string, unknown>;
   } catch {
     profile = {};
   }
+
+  const completedWorkouts = db.query(`
+    SELECT workout_title AS title
+    FROM workout_completions
+    WHERE user_id = ? AND week_start = ?
+  `).all(user.id, getWeekStart(timeZone)) as Array<{ title: string }>;
 
   return {
     id: user.id,
@@ -87,6 +118,7 @@ function publicUser(user: UserRow) {
     role: user.role,
     plan: user.plan,
     ...profile,
+    completedWorkouts: completedWorkouts.map(({ title }) => title),
     workoutsCompleted: user.workouts_completed,
     lastAction: user.last_action,
   };
@@ -186,7 +218,7 @@ const server = Bun.serve({
 
         const user = findUserById(id);
         if (!user) return json({ error: 'Não foi possível concluir o cadastro.' }, 500);
-        return json({ user: publicUser(user) }, 201, { 'Set-Cookie': createSession(id, request) });
+        return json({ user: publicUser(user, getRequestTimeZone(request)) }, 201, { 'Set-Cookie': createSession(id, request) });
       },
     },
     '/api/auth/login': {
@@ -200,7 +232,7 @@ const server = Bun.serve({
         const valid = user ? await Bun.password.verify(password, user.password_hash) : false;
         if (!user || !valid) return json({ error: 'E-mail ou senha inválidos.' }, 401);
 
-        return json({ user: publicUser(user) }, 200, { 'Set-Cookie': createSession(user.id, request) });
+        return json({ user: publicUser(user, getRequestTimeZone(request)) }, 200, { 'Set-Cookie': createSession(user.id, request) });
       },
     },
     '/api/auth/migrate': {
@@ -268,7 +300,7 @@ const server = Bun.serve({
     '/api/auth/session': {
       GET: (request) => {
         const user = getSessionUser(request);
-        return json({ user: user ? publicUser(user) : null });
+        return json({ user: user ? publicUser(user, getRequestTimeZone(request)) : null });
       },
     },
     '/api/auth/logout': {
@@ -328,7 +360,7 @@ const server = Bun.serve({
         db.query('UPDATE users SET profile_json = ?, last_action = ? WHERE id = ?')
           .run(JSON.stringify(profile), 'Perfil atualizado', user.id);
         const updatedUser = findUserById(user.id);
-        return json({ user: updatedUser ? publicUser(updatedUser) : null });
+        return json({ user: updatedUser ? publicUser(updatedUser, getRequestTimeZone(request)) : null });
       },
     },
     '/api/workouts/complete': {
@@ -337,11 +369,17 @@ const server = Bun.serve({
         if (!user) return json({ error: 'Entre na sua conta para registrar o treino.' }, 401);
         const body = await readJson(request);
         const title = typeof body?.title === 'string' ? body.title.trim().slice(0, 100) : '';
+        if (!title) return json({ error: 'Informe o treino que foi concluído.' }, 400);
+        const result = db.query(`
+          INSERT OR IGNORE INTO workout_completions (user_id, workout_title, week_start, completed_at)
+          VALUES (?, ?, ?, ?)
+        `).run(user.id, title, getWeekStart(getRequestTimeZone(request)), Date.now());
+        if (result.changes === 0) return json({ error: 'Este treino já foi concluído nesta semana.' }, 409);
         const action = title ? `Treino concluído: ${title}` : 'Treino concluído';
         db.query('UPDATE users SET workouts_completed = workouts_completed + 1, last_action = ? WHERE id = ?')
           .run(action, user.id);
         const updatedUser = findUserById(user.id);
-        return json({ user: updatedUser ? publicUser(updatedUser) : null });
+        return json({ user: updatedUser ? publicUser(updatedUser, getRequestTimeZone(request)) : null });
       },
     },
     '/api/admin/stats': {
